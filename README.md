@@ -13,25 +13,66 @@ license: mit
 
 # Evals Studio Demo
 
-Multi-provider benchmark comparison tool. Run evaluations across models and compare accuracy, F1, and ROUGE-L scores.
+A multi-provider LLM evaluation framework — generate completions, score them programmatically, and compare models on a live leaderboard.
 
-## Benchmarks
+**[→ Live Demo](https://zaid646-evals-studio-demo.hf.space)**
+
+---
+
+## Overview
+
+Run standardized benchmarks across LLM providers, measuring accuracy, token-level F1, and ROUGE-L similarity. Uses **LLM-as-judge** for semantic evaluation.
+
+### Benchmarks
 
 | Benchmark | Description | Samples |
 |---|---|---|
-| `mmlu` | General knowledge questions | 8 |
-| `factual_consistency` | Summarization consistency | 3 |
+| `mmlu` | General knowledge (multiple-choice) | 8 |
+| `factual_consistency` | Summarization factual accuracy | 3 |
 | `instruction_following` | Exact instruction adherence | 3 |
 
-## Metrics
+### Metrics
 
-- **Accuracy**: Exact string match (case-insensitive)
-- **F1 Score**: Token-level precision/recall
-- **ROUGE-L**: Longest Common Subsequence based recall
+- **Accuracy** — Exact string match (case-insensitive, punctuation-normalized)
+- **F1 Score** — Token-level precision & recall between predicted and reference
+- **ROUGE-L** — Longest Common Subsequence based recall
 
-## API Keys
+---
 
-| Secret | Value |
+## Running Locally
+
+```bash
+git clone https://github.com/zaid646/evals-studio-demo.git
+cd evals-studio-demo
+pip install -r requirements.txt
+python app.py
+```
+
+### Required Environment Variables
+
+| Variable | Description |
 |---|---|
-| `CEREBRAS_API_KEY` | Your Cerebras API key |
-| `NVIDIA_API_KEY` | Your NVIDIA API key |
+| `NVIDIA_API_KEY` | NVIDIA API key (default provider) |
+
+---
+
+## Architecture
+
+```
+User selects model + benchmark
+        ↓
+  Generate completions via API
+        ↓
+  Score each against reference
+  (accuracy / F1 / ROUGE-L)
+        ↓
+  LLM-as-judge evaluates quality
+        ↓
+  Leaderboard table (session state)
+```
+
+---
+
+## License
+
+MIT — see [LICENSE](LICENSE).
