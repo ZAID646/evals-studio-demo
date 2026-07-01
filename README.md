@@ -1,8 +1,13 @@
+---
+sdk: gradio
+sdk_version: 5.36.2
+python_version: "3.10"
+app_file: app.py
+---
+
 # Evals Studio Demo
 
-A multi-provider LLM evaluation framework — generate completions, score them programmatically, and compare models on a live leaderboard.
-
-**[→ Live Demo](https://zaid646-evals-studio-demo.hf.space)**
+A multi-provider LLM evaluation framework — generate completions, score them programmatically, and compare models on a live leaderboard. Try it live: [zaid646/evals-studio-demo](https://huggingface.co/spaces/zaid646/evals-studio-demo)
 
 ---
 
@@ -63,20 +68,3 @@ User selects model + benchmark
 ## License
 
 MIT — see [LICENSE](LICENSE).
-
----
-
-## YAML for HuggingFace
-
-```yaml
-title: Evals Studio Demo
-emoji: 📊
-colorFrom: green
-colorTo: blue
-sdk: gradio
-sdk_version: 5.36.2
-python_version: "3.10"
-app_file: app.py
-pinned: false
-license: mit
-```
