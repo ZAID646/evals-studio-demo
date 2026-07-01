@@ -1,16 +1,3 @@
----
-title: Evals Studio Demo
-emoji: 📊
-colorFrom: green
-colorTo: blue
-sdk: gradio
-sdk_version: 5.36.2
-python_version: "3.10"
-app_file: app.py
-pinned: false
-license: mit
----
-
 # Evals Studio Demo
 
 A multi-provider LLM evaluation framework — generate completions, score them programmatically, and compare models on a live leaderboard.
