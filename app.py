@@ -1,6 +1,7 @@
 import json
 import os
 import re
+import string
 import numpy as np
 from openai import OpenAI
 import matplotlib
@@ -48,12 +49,19 @@ BENCHMARKS = {
 }
 
 
+def normalize(text):
+    text = text.strip().lower()
+    while text and text[-1] in string.punctuation:
+        text = text[:-1].strip()
+    return text
+
+
 def accuracy_score(predictions, references):
     if not predictions:
         return 0.0
     correct = sum(
         1 for p, r in zip(predictions, references)
-        if p.strip().lower() == r.strip().lower()
+        if normalize(p) == normalize(r)
     )
     return correct / len(predictions)
 
@@ -61,8 +69,8 @@ def accuracy_score(predictions, references):
 def f1_score(predictions, references):
     scores = []
     for p, r in zip(predictions, references):
-        p_tokens = set(p.lower().split())
-        r_tokens = set(r.lower().split())
+        p_tokens = set(normalize(p).split())
+        r_tokens = set(normalize(r).split())
         if not r_tokens:
             scores.append(1.0 if not p_tokens else 0.0)
             continue
@@ -93,8 +101,8 @@ def lcs_length(x, y):
 def rouge_l_score(predictions, references):
     scores = []
     for p, r in zip(predictions, references):
-        p_tokens = p.lower().split()
-        r_tokens = r.lower().split()
+        p_tokens = normalize(p).split()
+        r_tokens = normalize(r).split()
         lcs = lcs_length(p_tokens, r_tokens)
         if len(r_tokens) == 0:
             scores.append(1.0 if len(p_tokens) == 0 else 0.0)
